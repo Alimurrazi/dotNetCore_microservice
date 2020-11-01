@@ -47,6 +47,7 @@ namespace Basket.API
                 c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Basket API", Version = "v1" });
             });
 
+            services.AddControllers();
             services.AddSingleton<IRabbitMQConnection>(sp =>
             {
                 var factory = new ConnectionFactory()
@@ -63,11 +64,10 @@ namespace Basket.API
                 }
                 return new RabbitMQConnection(factory);
             });
-
-            services.AddControllers();
+            services.AddSingleton<EventBusRabbitMQProducer>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Please use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

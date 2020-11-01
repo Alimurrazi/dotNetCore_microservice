@@ -30,7 +30,11 @@ namespace EventBusRabbitMQ
 
         public IModel CreateModel()
         {
-            throw new NotImplementedException();
+            if (!IsConnected)
+            {
+                throw new InvalidOperationException("No RabbitMQ connections are available to perform this action");
+            }
+            return _connection.CreateModel();
         }
 
         public void Dispose()
@@ -61,9 +65,12 @@ namespace EventBusRabbitMQ
             }
             if (IsConnected)
             {
+                Console.WriteLine($"RabbitMQ persistent connection acquired a connection {_connection.Endpoint.HostName} and is subscribed to failure events");
                 return true;
-            }else
+            }
+            else
             {
+                Console.WriteLine("FATAL ERROR: RabbitMQ connections could not be created and opened");
                 return false;
             }
         }
