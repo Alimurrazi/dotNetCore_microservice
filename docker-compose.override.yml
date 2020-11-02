@@ -6,21 +6,22 @@ services:
     container_name: catalogdb
     restart: always
     volumes:
-        - ${WEBAPP_STORAGE_HOME}/site:/data/db
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
     ports:
-        - "27017:27017"
+      - "27017:27017"
+
   basketdb:
     container_name: basketdb
     restart: always
     ports:
-        - "6379:6379"
-   
-   rabbitmq:
+      - "6379:6379"
+
+  rabbitmq:
      container_name: rabbitmq
      restart: always
      ports:
-        - "5672:5672"
-        - "15672:15672"
+       - "5672:5672"
+       - "15672:15672"
 
   catalog.api:
     environment:
@@ -47,4 +48,3 @@ services:
         - ${HOME}/.aspnet/https:/root/.aspnet/https
     ports:
         - "8001:80"
-
