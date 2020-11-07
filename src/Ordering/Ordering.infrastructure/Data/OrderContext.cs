@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Ordering.infrastructure.Data
 {
-    class OrderContext: DbContext
+    public class OrderContext: DbContext
     {
         public OrderContext(DbContextOptions<OrderContext>options) : base(options) {
         }
