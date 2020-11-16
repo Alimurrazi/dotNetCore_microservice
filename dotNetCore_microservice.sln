@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FAA0E45B-54E0-445A-AA14-BD5FDE08C23A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{1F4910BF-2A8F-44AE-83D6-7F9BE2E4B16C}"
+	ProjectSection(SolutionItems) = preProject
+		src\Ordering\Ordering.Core\Repositories\Base\IRepository.cs = src\Ordering\Ordering.Core\Repositories\Base\IRepository.cs
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.API", "src\Catalog\Catalog.API\Catalog.API.csproj", "{F2664CC6-4889-41BE-8E6E-6AE6638ED501}"
 EndProject
