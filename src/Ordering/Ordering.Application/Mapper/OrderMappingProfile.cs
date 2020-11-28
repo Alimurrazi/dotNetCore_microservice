@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Ordering.Application.Handlers;
 using Ordering.Application.Responses;
 using Ordering.Core.Entities;
 using System;
@@ -12,6 +13,7 @@ namespace Ordering.Application.Mapper
         public OrderMappingProfile()
         {
             CreateMap<Order, OrderResponse>().ReverseMap();
+            CreateMap<Order, CheckoutOrderCommand>().ReverseMap();
         }
     }
 }

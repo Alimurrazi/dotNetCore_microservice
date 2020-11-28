@@ -11,6 +11,14 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ordering.infrastructure.Data;
+using MediatR;
+using AutoMapper;
+using Ordering.Application.Handlers;
+using System.Reflection;
+using Ordering.Core.Repositories;
+using Ordering.infrastructure.Repository;
+using Ordering.Core.Repositories.Base;
+using Ordering.infrastructure.Repository.Base;
 
 namespace Ordering.API
 {
@@ -29,6 +37,17 @@ namespace Ordering.API
             services.AddControllers();
             services.AddDbContext<OrderContext>(c =>
             c.UseSqlServer(Configuration.GetConnectionString("OrderConnection")), ServiceLifetime.Singleton);
+
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Order API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +65,12 @@ namespace Ordering.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order API V1");
             });
         }
     }
