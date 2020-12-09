@@ -22,6 +22,7 @@ using Ordering.infrastructure.Repository.Base;
 using EventBusRabbitMQ;
 using RabbitMQ.Client;
 using EventBusRabbitMQ.Producer;
+using Ordering.API.RabbitMQ;
 
 namespace Ordering.API
 {
