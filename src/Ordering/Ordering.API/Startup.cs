@@ -23,6 +23,7 @@ using EventBusRabbitMQ;
 using RabbitMQ.Client;
 using EventBusRabbitMQ.Producer;
 using Ordering.API.RabbitMQ;
+using Ordering.API.Extensions;
 
 namespace Ordering.API
 {
@@ -42,11 +43,11 @@ namespace Ordering.API
             services.AddDbContext<OrderContext>(c =>
             c.UseSqlServer(Configuration.GetConnectionString("OrderConnection")), ServiceLifetime.Singleton);
 
-            services.AddAutoMapper(typeof(Startup));
-            services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
-            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
+            services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddMediatR(typeof(CheckoutOrderHandler).GetTypeInfo().Assembly);
 
             services.AddSwaggerGen(c =>
             {
@@ -89,6 +90,8 @@ namespace Ordering.API
             {
                 endpoints.MapControllers();
             });
+
+            app.UseRabbitListner();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
