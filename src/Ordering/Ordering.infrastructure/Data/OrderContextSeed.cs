@@ -24,7 +24,7 @@ namespace Ordering.infrastructure.Data
             }
             catch (Exception exception)
             {
-                if(retryForAvailability < 3)
+                if(retryForAvailability < 50)
                 {
                     retryForAvailability++;
                     var log = loggerFactory.CreateLogger<OrderContextSeed>();
