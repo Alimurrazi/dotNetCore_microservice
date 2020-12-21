@@ -10,7 +10,7 @@ namespace AspnetRunBasics.ApiCollection.Interfaces
     {
         Task<IEnumerable<CatalogModel>> GetCatalog();
         Task<IEnumerable<CatalogModel>> GetCatalogByCategory(string category);
-        Task<IEnumerable<CatalogModel>> GetCatalog(string id);
-        Task<IEnumerable<CatalogModel>> CreateCatalog(CatalogModel model);
+        Task<CatalogModel> GetCatalog(string id);
+        Task<CatalogModel> CreateCatalog(CatalogModel model);
     }
 }
